@@ -1,0 +1,8 @@
+# Observed development-environment versions, not a cross-platform lock file.
+fastapi==0.128.2
+uvicorn==0.48.0
+httpx==0.28.1
+pydantic==2.13.4
+playwright==1.57.0
+pytest==9.0.2
+pytest-asyncio==1.3.0

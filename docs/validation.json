@@ -1,0 +1,77 @@
+{
+  "date": "2026-09-24",
+  "scope": "Initial bounded implementation; not production/FPS acceptance",
+  "tests": {
+    "passed": 89,
+    "skipped": 4,
+    "failed": 0,
+    "errors": 0,
+    "duration_seconds": 12.605,
+    "skipped_names": [
+      "test_outbound_navigation_to_unapproved_origin_is_blocked",
+      "test_live_laya_drives_real_browser_form",
+      "test_live_laya_inference_smoke",
+      "test_live_android_capture"
+    ]
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "chromium": "/usr/bin/chromium",
+    "laya_sdk_installed": false,
+    "policy": "local",
+    "model": "multilingual",
+    "device": "cpu",
+    "adb": null,
+    "note": "Installed SDK does not prove downloaded weights or inference quality."
+  },
+  "real_laya_inference_verified": false,
+  "real_android_device_verified": false,
+  "browser_network_navigation_verified": false,
+  "actual_browser_dom_verified": true,
+  "live_policy_test_provider": "demo-NOT-LAYA",
+  "console_validation": {
+    "provider": "demo-NOT-LAYA",
+    "simulation": true,
+    "transport": "in-process ASGI bridge; not browser HTTP/WebSocket network validation",
+    "renderer": "real Chromium",
+    "runtime": "real second Chromium instance with bundled local HTML",
+    "session_state": "completed",
+    "steps": 3,
+    "js_errors": [],
+    "form_saved": true,
+    "executions": [
+      {
+        "action_id": "act_945eb5ea8aa74a8d",
+        "status": "executed",
+        "code": "DISPATCHED",
+        "latency_ms": 148.22441700016498,
+        "verification": "passed",
+        "decision_id": "decision_2e3d070626a043a4"
+      },
+      {
+        "action_id": "act_f2ee0461311b438c",
+        "status": "executed",
+        "code": "DISPATCHED",
+        "latency_ms": 130.26788099978148,
+        "verification": "passed",
+        "decision_id": "decision_301aa85cd4b744ae"
+      },
+      {
+        "action_id": "act_180813dbc7744f08",
+        "status": "executed",
+        "code": "DISPATCHED",
+        "latency_ms": 144.2547880001257,
+        "verification": "passed",
+        "decision_id": "decision_213ce7db52374935"
+      }
+    ],
+    "screenshot": "console.png"
+  },
+  "installation": {
+    "editable_no_deps": true,
+    "profile_schema_check": true,
+    "native_warmup_exit": 2,
+    "native_warmup_error": "Laya SDK unavailable; no demo fallback"
+  }
+}

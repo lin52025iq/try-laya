@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "reaction-sandbox",
+  "name": "Reaction sandbox / 实时控制沙盒",
+  "domain": "realtime",
+  "knowledge_summary": "This is a local reaction test, not a real FPS. Move the player toward the moving target by holding the left or right arrow for short leased intervals.",
+  "decision_instructions": "Read the signed target offset. Positive over 5: choose right; negative below -5: choose left; otherwise neutral. Choose based on the current state, not the order of candidates.",
+  "probes": {
+    "offset": {
+      "selector": "#offset",
+      "kind": "number"
+    }
+  },
+  "actions": [
+    {
+      "id": "right",
+      "description": "Hold ArrowRight briefly to move right.",
+      "kind": "control",
+      "controls": {
+        "keys": [
+          "ArrowRight"
+        ]
+      },
+      "ttl_ms": 100,
+      "when": [
+        {
+          "path": "fields.offset.number",
+          "op": "gte",
+          "value": -1000
+        },
+        {
+          "path": "fields.offset.number",
+          "op": "lte",
+          "value": 1000
+        }
+      ]
+    },
+    {
+      "id": "left",
+      "description": "Hold ArrowLeft briefly to move left.",
+      "kind": "control",
+      "controls": {
+        "keys": [
+          "ArrowLeft"
+        ]
+      },
+      "ttl_ms": 100,
+      "when": [
+        {
+          "path": "fields.offset.number",
+          "op": "gte",
+          "value": -1000
+        },
+        {
+          "path": "fields.offset.number",
+          "op": "lte",
+          "value": 1000
+        }
+      ]
+    },
+    {
+      "id": "neutral",
+      "description": "Release movement briefly to remain aligned.",
+      "kind": "control",
+      "controls": {
+        "keys": []
+      },
+      "ttl_ms": 100,
+      "when": [
+        {
+          "path": "fields.offset.number",
+          "op": "gte",
+          "value": -1000
+        },
+        {
+          "path": "fields.offset.number",
+          "op": "lte",
+          "value": 1000
+        }
+      ]
+    }
+  ],
+  "tick_ms": 80,
+  "max_observation_age_ms": 200,
+  "max_steps": 100,
+  "provenance": "bundled synthetic environment; not a game perception model"
+}
