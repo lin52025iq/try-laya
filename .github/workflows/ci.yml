@@ -27,3 +27,17 @@ jobs:
         with:
           name: tests-python-${{ matrix.python }}
           path: test-results.xml
+
+  windows-core:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bootstrap without Python Launcher
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_windows.ps1 -DemoOnly -SkipBrowserInstall
+      - name: Core tests
+        shell: powershell
+        run: .\.venv\Scripts\python.exe -m pytest -q -m "not browser and not android and not live_laya"

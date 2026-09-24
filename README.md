@@ -48,15 +48,43 @@ agentctl serve
 
 ### Windows PowerShell
 
+Windows **不要求安装 `py.exe` / Python Launcher**。有些 Python 安装只有 `python.exe`，此时执行 `py -3.11 ...` 会直接得到 “`py` is not recognized”。推荐使用仓库自带的启动脚本，它会依次寻找 Python Launcher、常见的本机 Python 安装和 PATH 中的 `python.exe`，并且不要求激活 venv：
+
 ```powershell
 git clone https://github.com/lin52025iq/try-laya.git
 cd try-laya
-py -3.11 -m venv .venv
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_windows.ps1
+
+.\.venv\Scripts\agentctl.exe serve
+```
+
+只想先验证浏览器/控制链而不安装 Laya/Torch：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_windows.ps1 -DemoOnly
+.\.venv\Scripts\agentctl.exe serve --policy demo
+```
+
+手工安装也可以完全不用 `py`：
+
+```powershell
+python --version
+python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev,laya]"
 .\.venv\Scripts\agentctl.exe browser-install
 .\.venv\Scripts\agentctl.exe doctor
 .\.venv\Scripts\agentctl.exe serve
 ```
+
+当前 CI 在 Linux 验证 Python 3.11/3.13，并在 Windows 验证 Python 3.12。Python 3.14 可以被启动脚本发现，但目前尚未作为本项目的正式验证版本；如果 Laya/Torch 在 3.14 上安装失败，建议并行安装 Python 3.12：
+
+```powershell
+winget install -e --id Python.Python.3.12
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_windows.ps1
+```
+
+脚本会直接寻找 `%LOCALAPPDATA%\Programs\Python\Python312\python.exe`，所以即使安装后仍没有 `py` 命令也能继续。更多排错见 [Windows 安装说明](docs/WINDOWS.md)。
 
 打开终端显示的 `http://127.0.0.1:8787`，粘贴本次启动的 Bearer token，然后连接服务、**在当前服务进程中点击「预热 Laya」**。默认模型为 `multilingual`，默认设备为 CPU；通过环境变量 `LAYA_MODEL` / `LAYA_DEVICE` 配置。
 
